@@ -2,7 +2,7 @@ module ActiveRecord::Duplicate
   extend ActiveSupport::Concern
 
   included do
-    define_callbacks :duplication, terminator: "result == false", scope: [:kind, :name]
+    define_callbacks :duplication, terminator: ->(_, result) { result == false }, scope: [:kind, :name]
 
     class_attribute :_duplicatable_attributes
     attr_accessor :duplication_parent, :duplication_context
